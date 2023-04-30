@@ -36,7 +36,7 @@ public class Main {
         }
         // Wait for the cookie policy popup to appear
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        By allowAllCookiesButton = By.xpath("//button[text()='Allow essential and optional cookies']");
+        By allowAllCookiesButton = By.xpath("//button[contains(text(), 'Allow')]");
         WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(allowAllCookiesButton));
         element.click();
 
@@ -93,8 +93,10 @@ public class Main {
                 // Check if the current URL matches the search query
                 String currentUrl = driver.getCurrentUrl();
                 if (currentUrl.contains(searchQuery)) {
+                    logger.debug("Search successful.");
                     System.out.println("Search successful for query: " + searchQuery);
                 } else {
+                    logger.error("Search unsuccessful.");
                     System.out.println("Search query not found in current URL: " + currentUrl);
                 }
             } catch (Exception e) {
